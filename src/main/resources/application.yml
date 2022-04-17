@@ -1,0 +1,37 @@
+spring:
+  profiles:
+    active: development
+
+---
+spring:
+  profiles: development
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://localhost:3307/gallery?useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=UTC
+    username: root
+    password: lepotica1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    tomcat:
+      test-while-idle: true
+      test-on-borrow: true
+      time-between-eviction-runs-millis: 3600000
+      validation-query: SELECT 1
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+      org:
+        hibernate:
+          envers:
+            audit_table_prefix: audit_
+            revision_field_name: revision
+            revision_type_field_name: revision_type
+            store_data_at_delete: true
+server:
+  port: 8081
+  servlet:
+    context-path: /api/v1
